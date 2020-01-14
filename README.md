@@ -200,7 +200,11 @@ function routeHash() {
     case "#/":          default:    listAll(); break;
   }
 }
+```
 
+And you'll also need a place to list the routes:
+
+```js
 function Routes() {
   return d`
     <ul class="filters">
@@ -221,3 +225,8 @@ function Routes() {
 }
 ```
 
+-----
+
+*Most of the examples above are taken from in a 250 line [TodoMVC test](https://dosyago.github.io/dumbass/tests/rvanillatodo/), the [full code of which you can see here.](https://github.com/dosyago/dumbass/blob/master/tests/rvanillatodo/src/app.js).*
+
+# *Go forth, and be dumb!*
