@@ -1,4 +1,4 @@
-# :bug: [dumbass](https://github.com/dosyago/dumbass) [![npm](https://img.shields.io/npm/v/dumbass.svg?label=&color=0080FF)](https://github.com/dosyago/dumbass/releases/latest)
+# :bug: [dumbass](https://github.com/dosyago/dumbass) [![npm](https://img.shields.io/npm/v/dumbass.svg?label=&color=0080FF)](https://github.com/dosyago/dumbass/releases/latest) ![npm downloads total](https://img.shields.io/npm/dt/dumbass)
 
 > Chosen by toddlers, insects, and stupid coders.
 
