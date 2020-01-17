@@ -113,7 +113,7 @@ setTimeout(() => Parent("Hi"), 3000);
 
 ### Real-world example 
 
-In the example below the `App` component nests `TodoLirt` and `Footer` components.
+In the example below the `App` component nests `TodoList` and `Footer` components.
 
 It also calls the `newTodoIfEnter` updator function on the `keydown` event of that input tag.
 
