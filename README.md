@@ -76,7 +76,7 @@ Or import in a module:
 
 ## Components
 
-Components are pure views. Functions that take something and return dumbass templates. If the view needs state, it can take it as a parameter.
+Components are pure views. Functions that take something and return **dumbass objects**. If the view needs state, it can take it as a parameter.
 
 ### Defining 
 
@@ -84,7 +84,7 @@ Components are pure views. Functions that take something and return dumbass temp
 const Component = state => d`<h1>${state}</h1>`
 ```
 
-A dumbass object is your HTML template. It is just a standard JavaScript [template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) you tag with the `d` function.
+A **dumbass object** is your HTML template. It's just a standard JavaScript [template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) you tag with the `d` function.
 
 ### Nesting
 
