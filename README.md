@@ -172,15 +172,15 @@ In order to update state and view in response to user input, you define *updator
  
 ## Properties
 
-There are no such things as properties in this "framework". A Component is simply a JavaScript function that returns a `dumbass` template, just like the above exmaples.
+There are no such things as properties in this "framework". A Component is simply a JavaScript function that returns dumbass object, which is just a template literal tagged with the `d` function.
 
-The way that state is passed through to sub-components is simply through function calls. The way that attributes and content are applied to elements is simply by slots in the dumbass template. 
+The way that state is passed through to sub-components is simply through function calls, and the way that attributes and content are applied to elements is simply by slots in the dumbass template, just like in the above examples.
 
 ## Global State
 
-Again, there is *nothing special* about "state" in this "framework". State is simply regular JavaScript variables. You use state the same way you use variables in your program. It needs to be in scope to where you reference it.
+Again, there is *nothing special* about "state" in this "framework". State is simply regular JavaScript variables. You use state the same way you use variables in your program. State needs to be in scope where you reference it.
 
-State flows through the component tree via regular function calls. A sub component receives state passed down from its parent component in a regular function call.
+State flows through the component tree via normal JavaScript function calls. A sub component receives state passed down from its parent component by a function call.
 
 ## Routing 
 
@@ -229,4 +229,4 @@ function Routes() {
 
 *Most of the examples above are taken from in a 250 line [TodoMVC test](https://dosyago.github.io/dumbass/tests/rvanillatodo/), the [full code of which you can see here.](https://github.com/dosyago/dumbass/blob/master/tests/rvanillatodo/src/app.js).*
 
-# *Go forth, and be dumb!*
+# *Go forth, stagnate and be dumb!*
