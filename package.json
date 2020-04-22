@@ -28,5 +28,8 @@
     "test": "serve -p 8080",
     "build": "parcel build r.js"
   },
-  "version": "2.5.0"
+  "version": "2.5.0",
+  "devDependencies": {
+    "parcel": "^1.12.4"
+  }
 }
