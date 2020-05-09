@@ -6,7 +6,11 @@
 
 Make components from cross-browser web standards without thinking too hard. 
 
-**Dumbass** is a library to help you do this. It is not taught by exposing its concepts, but rather through examples. Which are provided below. The aim is to aquire an intuitive understand of what works, and to be able to use it without thinking. Much care has been given to crafting the developer experience to enable this. 
+**Dumbass** is a library to help you do this. It is not taught by exposing its concepts, but rather through examples. Which are provided below. 
+
+The aim is to aquire an intuitive understanding of what works, and to be able to use it without thinking. 
+
+Much care has been given to crafting the developer experience to enable this. 
 
 ## Why?
 
