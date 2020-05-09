@@ -143,9 +143,11 @@ It also calls the `newTodoIfEnter` updator function on the `keydown` event of th
 function App(state) {
   const {list} = state;
   return d`
-    <header class="header">
+    <header class=header>
       <h1>todos</h1>
-      <input class="new-todo" placeholder="What needs to be done?" autofocus
+      <input autofocus
+        class=new-todo 
+        placeholder="What needs to be done?"
         keydown=${newTodoIfEnter} 
       >
     </header>
@@ -229,18 +231,18 @@ And you'll also need a place to list the routes:
 ```js
 function Routes() {
   return d`
-    <ul class="filters">
+    <ul class=filters>
       <li>
-        <a href="#/" click=${changeHash}
-          class="${location.hash == "#/" ? 'selected' : ''}">All</a>
+        <a href=#/ click=${changeHash}
+          class=${location.hash == "#/" ? 'selected' : ''}>All</a>
       </li>
       <li>
-        <a href="#/active" click=${changeHash}
-          class="${location.hash == "#/active" ? 'selected' : ''}">Active</a>
+        <a href=#/active click=${changeHash}
+          class=${location.hash == "#/active" ? 'selected' : ''}>Active</a>
       </li>
       <li>
-        <a href="#/completed" click=${changeHash}
-          class="${location.hash == "#/completed" ? 'selected' : ''}">Completed</a>
+        <a href=#/completed click=${changeHash}
+          class=${location.hash == "#/completed" ? 'selected' : ''}>Completed</a>
       </li>
     </ul>
   `
