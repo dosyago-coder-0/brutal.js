@@ -98,27 +98,19 @@ Or import in a module:
 
 ## Components
 
-Components are pure views. Functions that take something and return **dumbass objects**. If the view needs state, it can take it as a parameter.
-
 ### Defining 
 
 ```js
-const Component = state => d`<h1>${state}</h1>`
+const Title = state => d`<h1>${state}</h1>`
 ```
 
-A **dumbass object** is your HTML template. It's just a standard JavaScript [template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) you tag with the `d` function.
-
 ### Nesting
-
-Nest components by slotting the result of calling the component into the template of the parent component.
 
 ```js
 const Parent = state => d`<main>${Title(state)}</main>`;
 ```
 
-### Mounting
-
-The first time you call a top-level component, you should mount it to the document. 
+### Inserting
 
 ```js
 Parent("Hello").to('body', 'beforeEnd');
@@ -126,18 +118,13 @@ Parent("Hello").to('body', 'beforeEnd');
 
 ### Updating
 
-In order to update some view, just call that function again. It's as simple as that.
-
 ```js
 Parent("Greetings");
-setTimeout(() => Parent("Hi"), 3000);
+let i = 1;
+setTimeout(() => Parent(`${i++} 'Hi's`), 3000);
 ```
 
-### Real-world example 
-
-In the example below the `App` component nests `TodoList` and `Footer` components.
-
-It also calls the `newTodoIfEnter` updator function on the `keydown` event of that input tag.
+### ToDo ~MVC~ Example
 
 ```js
 function App(state) {
@@ -167,13 +154,7 @@ function TodoList(list) {
 }
 ```
 
-You'll notice we don't pass `state` (the whole client state object) to every component. Components can define the parameters they take, and it's up to their embedding components to pass them the correct state. 
-
-*You might also notice we're passing an Array into the template (in `TodoList`). That's OK so long as the Array only contains dumbass objects.*
-
 ### Updating on events
-
-In order to update state and view in response to user input, you define *updator functions* and pass them into a template slot as the value of an attribute named for the event you respond to. The above real world example showed the `newTodoIfEnter` updator was hooked to occur on the `keydown` event.
 
 ```js
   function newTodoIfEnter(keyEvent) {
@@ -185,30 +166,15 @@ In order to update state and view in response to user input, you define *updator
   }
  ```
  
- Updator functions noramlly do two things:
- 
- 1. Update some state.
- 2. Call the components that change in response to that update.
- 
- They're a loose convention that makes explicit the mapping between state changes and view functions / components.  
- 
- *You might also notice we manually empty the value. There's no strict binding between input values and state as enforced in more opinionated frameworks. You're free to write that sort of thing if you like, e.g: ``const NumberInput = n => d`<input type=number value=${n}>` ``;*
- 
 ## Properties
 
-There are no such things as properties in this "framework". A Component is simply a JavaScript function that returns dumbass object, which is just a template literal tagged with the `d` function.
-
-The way that state is passed through to sub-components is simply through function calls, and the way that attributes and content are applied to elements is simply by slots in the dumbass template, just like in the above examples.
+Do not exist. 
 
 ## Global State
 
-Again, there is *nothing special* about "state" in this "framework". State is simply regular JavaScript variables. You use state the same way you use variables in your program. State needs to be in scope where you reference it.
-
-State flows through the component tree via normal JavaScript function calls. A sub component receives state passed down from its parent component by a function call.
+is nothing special.
 
 ## Routing 
-
-Routing is not natively provided so you need to wire it yourself. Here's an exmaple of one way to do it:
 
 ```js
 function changeHash(e) {
@@ -224,11 +190,7 @@ function routeHash() {
     case "#/":          default:    listAll(); break;
   }
 }
-```
 
-And you'll also need a place to list the routes:
-
-```js
 function Routes() {
   return d`
     <ul class=filters>
