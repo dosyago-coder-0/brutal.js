@@ -77,7 +77,7 @@ npm i --save dumbass
 [Parcel](https://parceljs.org) or [Webpack](https://webpack.js.org) dumbass and import:
 
 ```js
-import { d } from "dumbass"
+import { d } from 'dumbass'
 ```
 
 [See a CodeSandbox how-to of above](https://codesandbox.io/s/dumbass-playground-7drzg)
@@ -85,8 +85,8 @@ import { d } from "dumbass"
 Or import in a module:
 
 ```html
-<script type="module">
-  import { d } from "https://unpkg.com/dumbass"
+<script type=module>
+  import { d } from 'https://unpkg.com/dumbass'
 </script>
 ```
 
