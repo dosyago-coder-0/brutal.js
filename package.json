@@ -30,6 +30,8 @@
   },
   "version": "2.5.2",
   "devDependencies": {
-    "parcel": "^1.12.4"
+    "eslint": "^7.4.0",
+    "parcel": "^1.12.4",
+    "typescript": "^3.9.6"
   }
 }
