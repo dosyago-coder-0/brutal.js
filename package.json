@@ -31,7 +31,7 @@
     "lint": "npx eslint *.js",
     "check": "( npm run tscheck || : ) && npm run lint"
   },
-  "version": "2.5.3",
+  "version": "2.5.4",
   "devDependencies": {
     "eslint": "^7.4.0",
     "parcel": "^1.12.4",
