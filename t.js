@@ -1,16 +1,12 @@
 
-  export const BROWSER_SIDE      = (() => {try{ return self.DOMParser && true; } catch(e) { return false; }})();
-
   const BuiltIns = [
     Symbol, Boolean, Number, String, Object, Set, Map, WeakMap, WeakSet,
     Uint8Array, Uint16Array, Uint32Array, Float32Array, Float64Array,
     Int8Array, Int16Array, Int32Array, 
     Uint8ClampedArray, 
-    ...(BROWSER_SIDE ? [
-      Node,NodeList,Element,HTMLElement, Blob, ArrayBuffer,
-      FileList, Text, HTMLDocument, Document, DocumentFragment,
-      Error, File, Event, EventTarget, URL
-    ] : [ Buffer ])
+    Node,NodeList,Element,HTMLElement, Blob, ArrayBuffer,
+    FileList, Text, HTMLDocument, Document, DocumentFragment,
+    Error, File, Event, EventTarget, URL
   ]
 
   const DEBUG = false;

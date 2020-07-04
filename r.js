@@ -10,10 +10,11 @@
   // constants
     const DEBUG             = false;
     const NULLFUNC          = () => void 0;
+    /* eslint-disable no-useless-escape */
     const KEYMATCH          = /(?:<!\-\-)?(key\d+)(?:\-\->)?/gm;
+    /* eslint-enable no-useless-escape */
     const ATTRMATCH         = /\w+=/;
     const KEYLEN            = 20;
-    const OURPROPS          = 'code,externals,nodes,to,update,v';
     const XSS               = () => `Possible XSS / object forgery attack detected. ` +
                               `Object code could not be verified.`;
     const OBJ               = () => `Object values not allowed here.`;
@@ -98,7 +99,7 @@
         update,code:CODE,nodes:[...frag.childNodes]};
 
       if ( useCache ) {
-        if ( !! instanceKey ) {
+        if ( instanceKey ) {
           cache[cacheKey].instances[instanceKey] = retVal;
         } else {
           cache[cacheKey] = retVal;
@@ -121,9 +122,9 @@
         DEBUG && console.log({location,options,e,elem,isNode});
         DEBUG && console.warn(e);
         switch(e.constructor && e.constructor.name) {
-          case "DOMException":      die({error: INSERT()},e);
-          case "TypeError":         die({error: NOTFOUND(location)},e); 
-          default: throw e;
+          case "DOMException":      die({error: INSERT()},e);             break;
+          case "TypeError":         die({error: NOTFOUND(location)},e);   break; 
+          default:                  throw e;
         }
       }
       while(this.externals.length) {
@@ -146,14 +147,15 @@
     function handleNode({node,vmap,externals}) {
       const lengths = [];
       const text = node.nodeValue; 
-      let result;
-      while( result = KEYMATCH.exec(text) ) {
+      let result = KEYMATCH.exec(text);
+      while ( result ) {
         const {index} = result;
         const key = result[1];
         const val = vmap[key];
         const replacer = makeNodeUpdater({node,index,lengths,val});
         externals.push(() => replacer(val.val));
         val.replacers.push( replacer );
+        result = KEYMATCH.exec(text);
       }
     }
 
@@ -180,7 +182,7 @@
 
       function handleMarkupInNode(newVal, state) {
         let {oldNodes,lastAnchor} = state;
-        if ( !! newVal.nodes.length ) {
+        if ( newVal.nodes.length ) {
           Array.from(newVal.nodes).reverse().forEach(n => {
             lastAnchor.parentNode.insertBefore(n,lastAnchor.nextSibling);
             state.lastAnchor = lastAnchor.nextSibling;
@@ -226,12 +228,23 @@
       }
 
     // element attribute functions
-      function handleElement({node,vmap,externals} = {}) {
+      function handleElement({node,vmap,externals}) {
         getAttributes(node).forEach(({name,value} = {}) => {
           const attrState = {node, vmap, externals, name, lengths: []};
-          let result;
-          while( result = KEYMATCH.exec(name) ) prepareAttributeUpdater(result, attrState, {updateName:true});
-          while( result = KEYMATCH.exec(value) ) prepareAttributeUpdater(result, attrState, {updateName:false});
+
+          KEYMATCH.lastIndex = 0;
+          let result = KEYMATCH.exec(name);
+          while( result ) {
+            prepareAttributeUpdater(result, attrState, {updateName:true});
+            result = KEYMATCH.exec(name);
+          }
+
+          KEYMATCH.lastIndex = 0;
+          result = KEYMATCH.exec(value);
+          while( result ) {
+            prepareAttributeUpdater(result, attrState, {updateName:false});
+            result = KEYMATCH.exec(value);
+          }
         });
       }
 
@@ -259,19 +272,18 @@
       // QUESTION: why is the variable oldName so required here, why can't we call it oldVal?
       // if we do it breaks, WHY?
       function makeAttributeNameUpdater(scope) {
-        let {oldName,updateName,node,input,index,name,val,externals,lengths,oldLengths} = scope;
+        let {oldName,node,val} = scope;
         return (newVal) => {
           if ( oldName == newVal ) return;
           val.val = newVal;
           const attr = node.hasAttribute(oldName) ? oldName : ''
           if ( attr !== newVal ) {
-            if ( !! attr ) {
+            if ( attr ) {
               node.removeAttribute(oldName);
               node[oldName] = undefined;
             }
-            if ( !! newVal ) {
+            if ( newVal ) {
               newVal = newVal.trim();
-              let result;
 
               let name = newVal, value = undefined;
 
@@ -299,10 +311,12 @@
             case "brutalobject": 
               newVal = nodesToStr(newVal.nodes); 
               updateAttrWithTextValue(newVal, scope); break;
+            /* eslint-disable no-fallthrough */
             case "markupattrobject":  // deliberate fall through
               newVal = newVal.str;
             default:                
               updateAttrWithTextValue(newVal, scope); break;
+            /* eslint-enable no-fallthrough */
           }
         };
       }
@@ -328,7 +342,7 @@
     }
 
     function updateAttrWithFunctionValue(newVal, scope) {
-      let {oldVal,updateName,node,input,index,name,val,externals,lengths,oldLengths} = scope;
+      let {oldVal,node,name,externals} = scope;
       if ( name !== 'bond' ) {
         let flags = {};
         if ( name.includes(':') ) {
@@ -338,12 +352,12 @@
             return O;
           }, {});
         }
-        if ( !! oldVal ) {
+        if ( oldVal ) {
           node.removeEventListener(name, oldVal, flags);
         }
         node.addEventListener(name, newVal, flags); 
       } else {
-        if ( !! oldVal ) {
+        if ( oldVal ) {
           const index = externals.indexOf(oldVal);
           if ( index >= 0 ) {
             externals.splice(index,1);
@@ -355,8 +369,8 @@
     }
 
     function updateAttrWithFuncarrayValue(newVal, scope) {
-      let {oldVal,updateName,node,input,index,name,val,externals,lengths,oldLengths} = scope;
-      if ( !! oldVal && ! Array.isArray(oldVal) ) {
+      let {oldVal,node,name,externals} = scope;
+      if ( oldVal && ! Array.isArray(oldVal) ) {
         oldVal = [oldVal]; 
       }
       if ( name !== 'bond' ) {
@@ -368,12 +382,12 @@
             return O;
           }, {});
         }
-        if ( !! oldVal ) {
+        if ( oldVal ) {
           oldVal.forEach(of => node.removeEventListener(name, of, flags));
         }
         newVal.forEach(f => node.addEventListener(name, f, flags));
       } else {
-        if ( !! oldVal ) {
+        if ( oldVal ) {
           oldVal.forEach(of => {
             const index = externals.indexOf(of);
             if ( index >= 0 ) {
@@ -387,7 +401,7 @@
     }
 
     function updateAttrWithHandlersValue(newVal, scope) {
-      let {oldVal,updateName,node,input,index,name,val,externals,lengths,oldLengths} = scope;
+      let {oldVal,node,externals,} = scope;
       if ( !!oldVal && T.check(T`Handlers`, oldVal) ) {
         Object.entries(oldVal).forEach(([eventName,funcVal]) => {
           if ( eventName !== 'bond' ) {
@@ -428,7 +442,7 @@
     }
 
     function updateAttrWithTextValue(newVal, scope) {
-      let {oldVal,updateName,node,input,index,name,val,externals,lengths,oldLengths} = scope;
+      let {oldVal,node,index,name,val,lengths} = scope;
       let zeroWidthCorrection = 0;
       const valIndex = val.vi;
       const originalLengthBefore = Object.keys(lengths.slice(0,valIndex)).length*KEYLEN;
@@ -530,13 +544,13 @@
         let cached = cache[cacheKey];
         if ( cached == undefined ) {
           cached = cache[cacheKey] = {};
-          if ( !! instanceKey ) {
+          if ( instanceKey ) {
             cached.instances = {};
             cached = cached.instances[instanceKey] = {};
           }
           firstCall = true;
         } else {
-          if ( !! instanceKey ) {
+          if ( instanceKey ) {
             if ( ! cached.instances ) {
               cached.instances = {};
               firstCall = true;
@@ -622,10 +636,17 @@
       }
 
       function toDOM(str) {
-        const f = (new DOMParser).parseFromString(
-          `<template>${str}</template>`,"text/html").head.firstElementChild.content;
-        f.normalize();
-        return f;
+        const templateEl = (new DOMParser).parseFromString(
+          `<template>${str}</template>`,"text/html"
+        ).head.firstElementChild;
+        let f;
+        if ( templateEl instanceof HTMLTemplateElement ) { 
+          f = templateEl.content;
+          f.normalize();
+          return f;
+        } else {
+          throw new TypeError(`Could not find template element after parsing string to DOM:\n=START=\n${str}\n=END=`);
+        }
       }
 
       function guardAndTransformVal(v) {

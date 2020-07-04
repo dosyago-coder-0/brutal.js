@@ -1,5 +1,6 @@
 .*.swp
 .cache
+typetests
 
 node_modules
 
