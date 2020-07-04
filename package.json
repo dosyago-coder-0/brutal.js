@@ -26,7 +26,10 @@
   },
   "scripts": {
     "test": "serve -p 8080",
-    "build": "parcel build r.js"
+    "build": "parcel build r.js",
+    "tscheck": "tsc --target ES2020 --checkJs --allowJs --outFile typetests/client.js --module System *.js decs.d.ts",
+    "lint": "npx eslint *.js",
+    "check": "( npm run tscheck || : ) && npm run lint"
   },
   "version": "2.5.2",
   "devDependencies": {
