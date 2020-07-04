@@ -8,8 +8,8 @@ import {
 
 const classNames = [resetClassName, styleClassName, layoutClassName];
 
-const inputSpot = ['#input-tests', 'beforeEnd'];
-const layoutSpot = ['#layout-tests', 'beforeEnd'];
+const inputSpot = ['#input-tests', 'beforeend'];
+const layoutSpot = ['#layout-tests', 'beforeend'];
 
 onload = testAll;
 

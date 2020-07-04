@@ -1,4 +1,4 @@
-import {R,X,spinnerClassName} from '../externals.js';
+import {d as R, u as X,spinnerClassName} from '../externals.js';
 
 export default spinner;
 

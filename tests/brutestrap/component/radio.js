@@ -1,4 +1,4 @@
-import {R,X,inputClassName, switchClassName} from '../externals.js';
+import {d as R, u as X,inputClassName, switchClassName} from '../externals.js';
 
 export default radio;
 

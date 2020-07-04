@@ -6,7 +6,9 @@
   }
 </style>
 <script type=module defer>
-  import {R,$} from '../r.js';
+  import {R} from '../r.js';
+
+  const $ = R;
   
   const sleep = ms => new Promise(res => setTimeout(res, ms));
 

@@ -15,7 +15,9 @@
   mo.observe(document.documentElement, {childList:true, subtree:true});
 </script>
 <script type=module defer>
-  import {R,$} from '../r.js';
+  import {R} from '../r.js';
+
+  const $ = R;
 
   self.firsth1 = null;
   self.secondh1 = null;

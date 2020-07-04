@@ -1,4 +1,4 @@
-import {R,X} from '../externals.js';
+import {d as R, u as X} from '../externals.js';
 
 export default datalist;
 

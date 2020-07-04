@@ -20,16 +20,16 @@
     const UNSET             = () => `Unset values not allowed here.`;
     const INSERT            = () => `Error inserting template into DOM. ` +
       `Position must be one of: ` +
-      `replace, beforeBegin, afterBegin, beforeEnd, innerHTML, afterEnd`;
+      `replace, beforebegin, afterbegin, beforeend, innerhtml, afterend`;
     const NOTFOUND          = loc => `Error inserting template into DOM. ` +
       `Location ${loc} was not found in the document.`;
     const MOVE              = new class {
-      beforeEnd   (frag,elem) { elem.appendChild(frag) }
-      beforeBegin (frag,elem) { elem.parentNode.insertBefore(frag,elem) }
-      afterEnd    (frag,elem) { elem.parentNode.insertBefore(frag,elem.nextSibling) }
+      beforeend   (frag,elem) { elem.appendChild(frag) }
+      beforebegin (frag,elem) { elem.parentNode.insertBefore(frag,elem) }
+      afterend    (frag,elem) { elem.parentNode.insertBefore(frag,elem.nextSibling) }
       replace     (frag,elem) { elem.parentNode.replaceChild(frag,elem) }
-      afterBegin  (frag,elem) { elem.insertBefore(frag,elem.firstChild) }
-      innerHTML   (frag,elem) { elem.innerHTML = ''; elem.appendChild(frag) }
+      afterbegin  (frag,elem) { elem.insertBefore(frag,elem.firstChild) }
+      innerhtml   (frag,elem) { elem.innerHTML = ''; elem.appendChild(frag) }
     };
 
   // logging
@@ -110,13 +110,16 @@
 
   // to function
     function to(location, options) {
-      const position = options || 'replace';
+      const position = (options || 'replace').toLocaleLowerCase();
       const frag = document.createDocumentFragment();
       this.nodes.forEach(n => frag.appendChild(n));
-      const elem = T.check(T`>Node`, location) ? location : document.querySelector(location);
+      const isNode = T.check(T`>Node`, location);
+      const elem = isNode ? location : document.querySelector(location);
       try {
         MOVE[position](frag,elem);
       } catch(e) {
+        DEBUG && console.log({location,options,e,elem,isNode});
+        DEBUG && console.warn(e);
         switch(e.constructor && e.constructor.name) {
           case "DOMException":      die({error: INSERT()},e);
           case "TypeError":         die({error: NOTFOUND(location)},e); 
@@ -487,10 +490,18 @@
       if (  name == "class" ) {
         value = formatClassListValue(value);
       }
-      node.setAttribute(name,value);
+
+      try {
+        node.setAttribute(name,value);
+      } catch(e) {
+        DEBUG && console.warn(e);
+      }
+
       try {
         node[name] = value == undefined ? true : value;
-      } catch(e) {}
+      } catch(e) {
+        DEBUG && console.warn(e);
+      }
     }
 
     function getType(val) {

@@ -1,4 +1,4 @@
-import {R,X,inputClassName,spinnerClassName} from '../externals.js';
+import {d as R, u as X,inputClassName,spinnerClassName} from '../externals.js';
 import spinner from './spinner.js';
 
 export default button;

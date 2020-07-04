@@ -1,10 +1,13 @@
 // For development
 const DEV = false;
 
-import {R,X} from './../../r.js';
-//import {R,X} from 'https://unpkg.com/brutalist-web/r.js';
+import {d as R, u as X} from './../../r.js';
+//import {d as R, u as X} from 'https://unpkg.com/brutalist-web/r.js';
 import {T} from 'https://unpkg.com/jtype-system/t.js';
 import {scope} from 'https://unpkg.com/maskingtape.css/c3s.js';
+
+const d = R;
+const u = X;
 
 const base = DEV ? `${location.protocol}//${location.host}${location.pathname}` : 'https://unpkg.com/brutestrap/';
 
@@ -13,7 +16,7 @@ const uri = name => {
   const url = `${base}${name}${random}`;
   //The following line breaks Edge because of the Exception thrown in c3s "Non CORS sheet with ${url}..."
   //because of the way we set a "placeholder key" there first, which triggers a load
-  //X`<link crossorigin="anonymous" rel=stylesheet href=${url}>`.to(document.head,'beforeEnd');
+  //X`<link crossorigin="anonymous" rel=stylesheet href=${url}>`.to(document.head,'beforeend');
   //So instead we do it manually
   const link = document.createElement('link');
   link.setAttribute('crossorigin', 'anonymous');
@@ -33,13 +36,14 @@ const {prefix:fileInputClassName} = scope(uri('fileinput.css'));
 const {prefix:tableClassName} = scope(uri('table.css'));
 
 export default {
-  R, X, T, inputClassName, switchClassName, spinnerClassName, resetClassName, styleClassName, layoutClassName, tableClassName, fileInputClassName
+  R, X, T, inputClassName, switchClassName, spinnerClassName, resetClassName, styleClassName, layoutClassName, tableClassName, fileInputClassName,
+  d, u,
 };
 
 export {
-  R, X, T, inputClassName, switchClassName, spinnerClassName, resetClassName, styleClassName, layoutClassName, tableClassName, fileInputClassName
+  R, X, T, inputClassName, switchClassName, spinnerClassName, resetClassName, styleClassName, layoutClassName, tableClassName, fileInputClassName,
+  d, u,
 };
-
 
 
 

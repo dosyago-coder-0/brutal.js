@@ -8,11 +8,12 @@
     Uint8ClampedArray, 
     ...(BROWSER_SIDE ? [
       Node,NodeList,Element,HTMLElement, Blob, ArrayBuffer,
-      FileList, Text, Document, DocumentFragment,
+      FileList, Text, HTMLDocument, Document, DocumentFragment,
       Error, File, Event, EventTarget, URL
     ] : [ Buffer ])
   ]
 
+  const DEBUG = true;
   const SEALED_DEFAULT = true;
   const isNone = instance => instance == null || instance == undefined;
 
@@ -34,6 +35,12 @@
   T.maybe = maybe;
   T.guard = guard;
   T.errors = errors;
+
+  // debug
+  if ( DEBUG ) {
+    self.T = T;
+    self.typeCache = typeCache;
+  }
 
   T[Symbol.for('jtype-system.typeCache')] = typeCache;
 
@@ -261,18 +268,21 @@
     guardType(type);
     guardExists(type);
 
+    let verifiers;
+
     if ( ! verify ) {
       verify = () => true;
     } 
 
     if ( type.native ) {
-      spec.verifiers = [ {help,verify} ];
-      verify = i => i instanceof type.native.constructor && verify(i);
-      const helpMsg = `Needs to be of type ${type.native.constructor.name}. ${help||''}`;
-      spec.verifiers.push({help:helpMsg,verify});
+      verifiers = [ {help,verify} ];
+      verify = i => i instanceof type.native;
+      const helpMsg = `Needs to be of type ${type.native.name}. ${help||''}`;
+      verifiers.push({help:helpMsg,verify});
     }
 
-    return def(`${name}>${type.name}`, spec, {verify,help});
+    const newType = def(`${name}>${type.name}`, spec, {verify,help, verifiers});
+    return newType;
   }
 
   function defEnum(name, ...values) {
@@ -312,6 +322,7 @@
             if ( ! Array.isArray(v) ) {
               recurseObject(v, keyPathSet, keyPaths[i]);
             } else {
+              DEBUG && console.warn({o,v,keyPathSet, lastLevel});
               throw new TypeError(`We don't support Types that use Arrays as structure, just yet.`); 
             }
           } else {
@@ -324,7 +335,8 @@
             if ( ! Array.isArray(v) ) {
               recurseObject(v, keyPathSet, keyPaths[i]);
             } else {
-              throw new TypeError(`We don't support Instances that use Arrays as structure, just yet.`); 
+              v.forEach((item,index) => recurseObject(item, keyPathSet, keyPaths[i] + '.' + index));
+              //throw new TypeError(`We don't support Instances that use Arrays as structure, just yet.`); 
             }
           } else {
             //console.warn("Spec has no such key",  keyPaths[i]);
@@ -388,6 +400,11 @@
       Object.defineProperty(this,'isSumType', {get: () => true});
       Object.defineProperty(this,'types', {get: () => typeSet});
     }
+
+    if ( mods.native ) {
+      const {native} = mods;
+      Object.defineProperty(this,'native', {get: () => native});
+    }
   }
 
   Type.prototype.toString = function () {
@@ -412,7 +429,7 @@
     if ( sealed === undefined ) {
       sealed = true;
     }
-    const t = new Type(name, {types});
+    const t = new Type(name, {types, native});
     const cache = {spec,kind,help,verify,verifiers,sealed,types,native,type:t};
     typeCache.set(name, cache);
     return t;

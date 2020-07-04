@@ -1,4 +1,4 @@
-import {R,X,layoutClassName} from '../externals.js';
+import {d as R, u as X,layoutClassName} from '../externals.js';
 
 export default holygrail;
 

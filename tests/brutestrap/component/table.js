@@ -1,4 +1,4 @@
-import {R,X,tableClassName} from '../externals.js';
+import {d as R, u as X,tableClassName} from '../externals.js';
 
 import textInput from './textInput.js';
 

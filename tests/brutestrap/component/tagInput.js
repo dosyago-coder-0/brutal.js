@@ -1,4 +1,4 @@
-import {R,X, inputClassName} from '../externals.js';
+import {d as R, u as X, inputClassName} from '../externals.js';
 
 export default tagInput;
 
@@ -29,7 +29,7 @@ function startNewTagIfEnterAndEdgeBrowser(keyEvent) {
   const {target:contentEditable, key} = keyEvent;
 
   if ( key == "Enter" ) {
-    X`<span class=tag></span>`.to(contentEditable,'beforeEnd');
+    X`<span class=tag></span>`.to(contentEditable,'beforeend');
     const newTagRange = document.createRange();
 
     newTagRange.setStart(contentEditable.lastElementChild, 0);
