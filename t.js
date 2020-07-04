@@ -13,7 +13,7 @@
     ] : [ Buffer ])
   ]
 
-  const DEBUG = true;
+  const DEBUG = false;
   const SEALED_DEFAULT = true;
   const isNone = instance => instance == null || instance == undefined;
 
