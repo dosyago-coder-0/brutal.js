@@ -78,6 +78,8 @@
         } else {
           retVal.oldVals = Array.from(v);
         }
+      } else {
+        retVal.oldVals = Array.from(v);
       }
       
       // compile the template into an updater
@@ -533,8 +535,10 @@
         T.check(T`BrutalObject`, val) ? 'brutalobject' : 
         T.check(T`MarkupObject`, val) ? 'markupobject' :
         T.check(T`MarkupAttrObject`, val) ? 'markupattrobject' :
+        /*T.check(T`BrutalArray`, val) ? 'brutalarray' : */
         T.check(T`FuncArray`, val) ? 'funcarray' : 
-        T.check(T`BrutalArray`, val) ? 'brutalarray' : 'default';
+        'default'
+      ;
       return type;
     }
 
@@ -693,7 +697,7 @@
         os.forEach(o => (externals.push(...o.externals),bigNodes.push(...o.nodes)));
         //Refers #45. Debug to try to see when node reverse order is introduced.
         //setTimeout( () => console.log(nodesToStr(bigNodes)), 1000 );
-        const retVal = {v:[],code:CODE,nodes:bigNodes,to,update,externals};
+        const retVal = {v:[],code:CODE,oldVals:[],nodes:bigNodes,to,update,externals};
         return retVal;
       }
 
@@ -712,9 +716,8 @@
       }
 
       function update(newVals) {
-        let updateable = this.v.filter(({vi}) => didChange(newVals[vi], this.oldVals[vi]));
+        const updateable = this.v.filter(({vi}) => didChange(newVals[vi], this.oldVals[vi]));
         DEBUG && console.log({updateable, oldVals:this.oldVals, newVals});
-        updateable = this.v;
         updateable.forEach(({vi,replacers}) => replacers.forEach(f => f(newVals[vi])));
         this.oldVals = Array.from(newVals);
       }
