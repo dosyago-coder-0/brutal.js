@@ -194,11 +194,15 @@
       function handleMarkupInNode(newVal, state) {
         let {oldNodes,lastAnchor} = state;
         if ( newVal.nodes.length ) {
-          Array.from(newVal.nodes).reverse().forEach(n => {
-            lastAnchor.parentNode.insertBefore(n,lastAnchor.nextSibling);
-            state.lastAnchor = lastAnchor.nextSibling;
-          });
-          state.lastAnchor = newVal.nodes[0];
+          if ( sameOrder(oldNodes,newVal.nodes) ) {
+            // do nothing
+          } else {
+            Array.from(newVal.nodes).reverse().forEach(n => {
+              lastAnchor.parentNode.insertBefore(n,lastAnchor.nextSibling);
+              state.lastAnchor = lastAnchor.nextSibling;
+            });
+            state.lastAnchor = newVal.nodes[0];
+          }
         } else {
           const placeholderNode = summonPlaceholder(lastAnchor);
           lastAnchor.parentNode.insertBefore(placeholderNode,lastAnchor.nextSibling);
@@ -215,6 +219,12 @@
           const func = newVal.externals.shift();
           func();
         } 
+      }
+
+      function sameOrder(nodesA, nodesB) {
+        if ( nodesA.length != nodesB.length ) return false;
+
+        return Array.from(nodesA).every((an,i) => an == nodesB[i]);
       }
 
       function handleTextInNode(newVal, state) {
