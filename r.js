@@ -535,7 +535,7 @@
         T.check(T`BrutalObject`, val) ? 'brutalobject' : 
         T.check(T`MarkupObject`, val) ? 'markupobject' :
         T.check(T`MarkupAttrObject`, val) ? 'markupattrobject' :
-        /*T.check(T`BrutalArray`, val) ? 'brutalarray' : */
+        T.check(T`BrutalArray`, val) ? 'brutalarray' : 
         T.check(T`FuncArray`, val) ? 'funcarray' : 
         'default'
       ;
@@ -692,10 +692,16 @@
       function join(os) {
         const externals = [];
         const bigNodes = [];
-        os.forEach(o => (externals.push(...o.externals),bigNodes.push(...o.nodes)));
-        //Refers #45. Debug to try to see when node reverse order is introduced.
-        //setTimeout( () => console.log(nodesToStr(bigNodes)), 1000 );
-        const retVal = {v:[],code:CODE,oldVals:[],nodes:bigNodes,to,update,externals};
+        const v = [];
+        const oldVals = [];
+        os.forEach(o => {
+          //v.push(...o.v); 
+          //oldVals.push(...o.oldVals);
+          externals.push(...o.externals);
+          bigNodes.push(...o.nodes);
+        });
+        DEBUG && console.log({oldVals,v});
+        const retVal = {v,code:CODE,oldVals,nodes:bigNodes,to,update,externals};
         return retVal;
       }
 
@@ -732,20 +738,28 @@
               // the brutal object is returned by a view function
               // which has already called its updaters and checked its slot values
               // to determine and show changes
-              ret = false;
+              // except in the case of a list of nodes
+              ret = true;
+              break;
+            /* eslint-disable no-fallthrough */
             case "funcarray":
             case "function":
               // hard to equate even if same str value as scope could be diff
               ret = true;
+              break;
             case "brutalarray":
               // need to do array dif so don't do here
               ret = true;
-            case "markupattroject":
+              break;
+            case "markupattrobject":
             case "markupobject":
               // need to check multiple things
               ret = true;
+              break;
             default:
               ret = JSON.stringify(oldVal) !== JSON.stringify(newVal);
+              break;
+            /* eslint-enable no-fallthrough */
           }
         }
 

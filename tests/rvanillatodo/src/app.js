@@ -54,16 +54,16 @@ import {R} from '../../../r.js';
         </span>
         <ul class="filters">
           <li>
-            <a href="#/" click=${changeHash}
-              class="${location.hash == "#/" ? 'selected' : ''}">All</a>
+            <a href="#" click=${changeHash}
+              class="${location.hash == "#" ? 'selected' : ''}">All</a>
           </li>
           <li>
-            <a href="#/active" click=${changeHash}
-              class="${location.hash == "#/active" ? 'selected' : ''}">Active</a>
+            <a href="#active" click=${changeHash}
+              class="${location.hash == "#active" ? 'selected' : ''}">Active</a>
           </li>
           <li>
-            <a href="#/completed" click=${changeHash}
-              class="${location.hash == "#/completed" ? 'selected' : ''}">Completed</a>
+            <a href="#completed" click=${changeHash}
+              class="${location.hash == "#completed" ? 'selected' : ''}">Completed</a>
           </li>
         </ul>
         <button click="${clearCompleted}" class=clear-completed>Clear completed</button>
@@ -112,9 +112,9 @@ import {R} from '../../../r.js';
 
   function routeHash() {
     switch(location.hash) {
-      case "#/active":                listActive(); break;
-      case "#/completed":             listCompleted(); break;
-      case "#/":          default:    listAll(); break;
+      case "#active":                listActive(); break;
+      case "#completed":             listCompleted(); break;
+      case "#":          default:    listAll(); break;
     }
   }
 
