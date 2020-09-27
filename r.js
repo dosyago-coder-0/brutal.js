@@ -674,8 +674,6 @@
         const isBrutal        = T.check(T`BrutalObject`, v);
         const isForgery       = T.check(T`BrutalLikeObject`, v)  && !isBrutal; 
 
-        DEBUG && console.log({v});
-
         if ( isFunc )         return v;
         if ( isBrutal )       return v;
         if ( isKey(v) )       return v;
