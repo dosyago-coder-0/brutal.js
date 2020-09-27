@@ -62,6 +62,7 @@
 
   // main function (TODO: should we refactor?)
     function dumbass(p,v,{useCache:useCache=true}={}) {
+      const retVal = {};
       let instanceKey, cacheKey;
 
       v = v.map(guardAndTransformVal);
@@ -74,6 +75,8 @@
         if ( ! firstCall ) {
           cached.update(v);
           return cached;
+        } else {
+          retVal.oldVals = Array.from(v);
         }
       }
       
@@ -95,8 +98,14 @@
         makeUpdaters({walker,vmap,externals});
       } while(walker.nextNode())
 
-      const retVal = {externals,v:Object.values(vmap),to,
-        update,code:CODE,nodes:[...frag.childNodes]};
+      Object.assign(retVal, {
+        externals,
+        v:Object.values(vmap),
+        to,
+        update,
+        code:CODE,
+        nodes:[...frag.childNodes]
+      });
 
       if ( useCache ) {
         if ( instanceKey ) {
@@ -524,7 +533,8 @@
         T.check(T`BrutalObject`, val) ? 'brutalobject' : 
         T.check(T`MarkupObject`, val) ? 'markupobject' :
         T.check(T`MarkupAttrObject`, val) ? 'markupattrobject' :
-        T.check(T`FuncArray`, val) ? 'funcarray' : 'default';
+        T.check(T`FuncArray`, val) ? 'funcarray' : 
+        T.check(T`BrutalArray`, val) ? 'brutalarray' : 'default';
       return type;
     }
 
@@ -660,6 +670,8 @@
         const isBrutal        = T.check(T`BrutalObject`, v);
         const isForgery       = T.check(T`BrutalLikeObject`, v)  && !isBrutal; 
 
+        DEBUG && console.log({v});
+
         if ( isFunc )         return v;
         if ( isBrutal )       return v;
         if ( isKey(v) )       return v;
@@ -700,7 +712,44 @@
       }
 
       function update(newVals) {
-        this.v.forEach(({vi,replacers}) => replacers.forEach(f => f(newVals[vi])));
+        let updateable = this.v.filter(({vi}) => didChange(newVals[vi], this.oldVals[vi]));
+        DEBUG && console.log({updateable, oldVals:this.oldVals, newVals});
+        updateable = this.v;
+        updateable.forEach(({vi,replacers}) => replacers.forEach(f => f(newVals[vi])));
+        this.oldVals = Array.from(newVals);
+      }
+
+      function didChange(oldVal, newVal) {
+        DEBUG && console.log({oldVal,newVal});
+        const [oldType, newType] = [oldVal, newVal].map(getType); 
+        let ret;
+        if ( oldType != newType ) {
+          ret =  true;
+        } else {
+          switch(oldType) {
+            case "brutalobject":
+              // the brutal object is returned by a view function
+              // which has already called its updaters and checked its slot values
+              // to determine and show changes
+              ret = false;
+            case "funcarray":
+            case "function":
+              // hard to equate even if same str value as scope could be diff
+              ret = true;
+            case "brutalarray":
+              // need to do array dif so don't do here
+              ret = true;
+            case "markupattroject":
+            case "markupobject":
+              // need to check multiple things
+              ret = true;
+            default:
+              ret = JSON.stringify(oldVal) !== JSON.stringify(newVal);
+          }
+        }
+
+        DEBUG && console.log({ret});
+        return ret;
       }
 
   // reporting and error helpers 

@@ -54,7 +54,8 @@
       nodes: T`Array`,
       to: T`Function`,
       update: T`Function`,
-      v: T`Array`
+      v: T`Array`,
+      oldVals: T`Array`
     });
 
     export const TBrutalObject = T.def('BrutalObject', {
@@ -63,7 +64,8 @@
       nodes: T`Array`,
       to: T`Function`,
       update: T`Function`,
-      v: T`Array`
+      v: T`Array`,
+      oldVals: T`Array`
     }, {verify: v => verify(v)});
 
     export const TBrutalArray = T.defCollection('BrutalArray', {
