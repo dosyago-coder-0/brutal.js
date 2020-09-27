@@ -1,0 +1,37 @@
+{
+  "author": {
+    "name": "@dosy"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "esm": "^3.0.74"
+  },
+  "deprecated": false,
+  "description": "A rudimentary type system for JS",
+  "keywords": [
+    "javascript",
+    "type-system",
+    "jtype",
+    "dosy"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "jtype-system",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//crislin2046/jtype"
+  },
+  "scripts": {
+    "test": "serve -p 8080",
+    "tscheck-client": "tsc --types node --target ES2020 --checkJs --allowJs --outFile typetests/client.js --module System t.js test.js decs.d.ts",
+    "tscheck": "npm run tscheck-client",
+    "lint": "npx eslint t.js test.js",
+    "check": "npm run lint && npm run tscheck"
+  },
+  "version": "1.3.1",
+  "devDependencies": {
+    "@types/node": "^14.0.13",
+    "eslint": "^7.3.0",
+    "typescript": "^3.9.5"
+  }
+}
