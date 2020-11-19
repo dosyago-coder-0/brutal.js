@@ -44,7 +44,7 @@ No JSX, no Shadow DOM, no fancy framworks, no opinions.
 
 ```javascript     
 function Spin(n) {
-  return d`  
+  return e`  
     <div 
       wheel:passive=${spin}
       touchmove:passive=${move}
@@ -66,11 +66,11 @@ function Spin(n) {
 
 ## Still not bored?
 
-You soon will be. Nothing amazing here: [Play with the full example on CodePen](https://codepen.io/dosycorp/pen/OJPQQzB?editors=1000)
+You soon will be. Nothing notable here: [Play with the full example on CodePen](https://codepen.io/dosycorp/pen/OJPQQzB?editors=1000)
 
 See [even more boring code](https://github.com/c9fe/exoteric/blob/master/tests/rvanillatodo/src/app.js) in a 250 line [TodoMVC test](https://c9fe.github.io/exoteric/tests/rvanillatodo/)
 
-## Install mantras
+## Holy secular install mantras
 
 Install exoteric with npm:
 
