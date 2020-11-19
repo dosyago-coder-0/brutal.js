@@ -219,4 +219,4 @@ function Routes() {
 
 *Most of the examples above are taken from in a 250 line [TodoMVC test](https://c9fe.github.io/exoteric/tests/rvanillatodo/), the [full code of which you can see here.](https://github.com/c9fe/exoteric/blob/master/tests/rvanillatodo/src/app.js).*
 
-# *Go forth, stagnate and be dumb!*
+# *Can you hear the people sing*
