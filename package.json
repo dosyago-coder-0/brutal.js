@@ -3,12 +3,12 @@
     "name": "@dosy"
   },
   "bugs": {
-    "url": "https://github.com/dosyago/dumbass/issues"
+    "url": "https://github.com/c9fe/exoteric/issues"
   },
   "bundleDependencies": false,
   "dependencies": {},
-  "description": "dumbass. Code components without opinions.",
-  "homepage": "https://github.com/dosyago/dumbass#readme",
+  "description": "exoteric. Code components without opinions.",
+  "homepage": "https://github.com/c9fe/exoteric#readme",
   "keywords": [
     "javascript",
     "view",
@@ -19,10 +19,10 @@
   "unpkg": "r.js",
   "module": "r.js",
   "browser": "dist/r.js",
-  "name": "dumbass",
+  "name": "exoteric",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dosyago/dumbass.git"
+    "url": "git+https://github.com/c9fe/exoteric.git"
   },
   "scripts": {
     "test": "serve -p 8080",

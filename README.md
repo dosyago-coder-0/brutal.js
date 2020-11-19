@@ -1,18 +1,19 @@
-# :bug: [dumbass](https://github.com/dosyago/dumbass) [![npm](https://img.shields.io/npm/v/dumbass.svg?label=&color=0080FF)](https://github.com/dosyago/dumbass/releases/latest) ![npm downloads total](https://img.shields.io/npm/dt/dumbass)
+# :bug: [exoteric](https://github.com/c9fe/exoteric) [![npm](https://img.shields.io/npm/v/exoteric.svg?label=&color=0080FF)](https://github.com/c9fe/exoteric/releases/latest) ![npm downloads total](https://img.shields.io/npm/dt/exoteric)
 
-> Chosen by toddlers, insects, and stupid coders.
+> The tool of choice for the madding crowd
 
-**Be boring, be dumb. Be too stupid for complex tools.**
+**Tooling shouldn't be hard to understand.**
 
 Make components from cross-browser web standards without thinking too hard. 
 
-**Dumbass** is a library to help you do this. It is not taught by exposing its concepts, but rather through examples. Which are provided below. 
-
-The aim is to aquire an intuitive understanding of what works, and to be able to use it without thinking. 
-
-Much care has been given to crafting the developer experience to enable this. 
+**exoteric** is a library to help. 
 
 ## Why?
+
+> ### exoteric
+> /ˌɛksə(ʊ)ˈtɛrɪk/
+> *adjective* `FORMAL`
+> intended for or likely to be understood by the general public.
 
 ### [Kernighan's Law](https://github.com/dwmkerr/hacker-laws#kernighans-law)
 
@@ -32,11 +33,11 @@ No JSX, no Shadow DOM, no fancy framworks, no opinions.
 
 - **Just HTML, CSS and JavaScript**—No JSX, no Shadow DOM, no fancy frameworks, no opinions. 
 - **Stop learning, stagnate!**—Use the syntax you already know. Stop learning new things. Do more with what's already here.
-- **Crazy and fun, but in a serious way**—Dumbass is the tool for people who don't want to think too hard to make UI. 
+- **Crazy and fun, but in a serious way**—exoteric is the tool for people who don't want to think too hard to make UI. 
 
 *To learn more*...oh wait, you already know enough. 
 
-### Gorgeous dumbass
+### be exoteric
 
 ```javascript     
 function Spin(n) {
@@ -64,29 +65,29 @@ function Spin(n) {
 
 You soon will be. Nothing amazing here: [Play with the full example on CodePen](https://codepen.io/dosycorp/pen/OJPQQzB?editors=1000)
 
-See [even more boring code](https://github.com/dosyago/dumbass/blob/master/tests/rvanillatodo/src/app.js) in a 250 line [TodoMVC test](https://dosyago.github.io/dumbass/tests/rvanillatodo/)
+See [even more boring code](https://github.com/c9fe/exoteric/blob/master/tests/rvanillatodo/src/app.js) in a 250 line [TodoMVC test](https://c9fe.github.io/exoteric/tests/rvanillatodo/)
 
 ## Install mantras
 
-Install dumbass with npm:
+Install exoteric with npm:
 
 ```console
-npm i --save dumbass
+npm i --save exoteric
 ```
 
-[Parcel](https://parceljs.org) or [Webpack](https://webpack.js.org) dumbass and import:
+[Parcel](https://parceljs.org) or [Webpack](https://webpack.js.org) exoteric and import:
 
 ```js
-import { d } from 'dumbass'
+import { e } from 'exoteric'
 ```
 
-[See a CodeSandbox how-to of above](https://codesandbox.io/s/dumbass-playground-7drzg)
+[See a CodeSandbox how-to of above](https://codesandbox.io/s/exoteric-playground-7drzg)
 
 Or import in a module:
 
 ```html
 <script type=module>
-  import { d } from 'https://unpkg.com/dumbass'
+  import { e } from 'https://unpkg.com/exoteric'
 </script>
 ```
 
@@ -101,13 +102,13 @@ Or import in a module:
 ### Defining 
 
 ```js
-const Title = state => d`<h1>${state}</h1>`
+const Title = state => e`<h1>${state}</h1>`
 ```
 
 ### Nesting
 
 ```js
-const Parent = state => d`<main>${Title(state)}</main>`;
+const Parent = state => e`<main>${Title(state)}</main>`;
 ```
 
 ### Inserting
@@ -129,7 +130,7 @@ setTimeout(() => Parent(`${i++} 'Hi's`), 3000);
 ```js
 function App(state) {
   const {list} = state;
-  return d`
+  return e`
     <header class=header>
       <h1>todos</h1>
       <input autofocus
@@ -146,7 +147,7 @@ function App(state) {
 }
 
 function TodoList(list) {
-  return d`
+  return e`
     <ul class=todo-list>
       ${list.map(Todo)}
     </ul>
@@ -192,7 +193,7 @@ function routeHash() {
 }
 
 function Routes() {
-  return d`
+  return e`
     <ul class=filters>
       <li>
         <a href=#/ click=${changeHash}
@@ -213,6 +214,6 @@ function Routes() {
 
 -----
 
-*Most of the examples above are taken from in a 250 line [TodoMVC test](https://dosyago.github.io/dumbass/tests/rvanillatodo/), the [full code of which you can see here.](https://github.com/dosyago/dumbass/blob/master/tests/rvanillatodo/src/app.js).*
+*Most of the examples above are taken from in a 250 line [TodoMVC test](https://c9fe.github.io/exoteric/tests/rvanillatodo/), the [full code of which you can see here.](https://github.com/c9fe/exoteric/blob/master/tests/rvanillatodo/src/app.js).*
 
 # *Go forth, stagnate and be dumb!*

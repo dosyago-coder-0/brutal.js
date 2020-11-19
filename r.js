@@ -42,8 +42,11 @@
 
   // cache 
     const cache = {};
+    // deux
     export const d = R;
+    export const e = d;
     export const u = X;
+    export const x = u;
 
   // main exports 
     Object.assign(R,{s,attrskip,skip,attrmarkup,markup,guardEmptyHandlers,die});
@@ -53,15 +56,15 @@
     }
 
     export function R(p,...v) {
-      return dumbass(p,v);
+      return exoteric(p,v);
     }
 
     export function X(p,...v) {
-      return dumbass(p,v,{useCache:false});
+      return exoteric(p,v,{useCache:false});
     }
 
   // main function (TODO: should we refactor?)
-    function dumbass(p,v,{useCache:useCache=true}={}) {
+    function exoteric(p,v,{useCache:useCache=true}={}) {
       const retVal = {};
       let instanceKey, cacheKey;
 
