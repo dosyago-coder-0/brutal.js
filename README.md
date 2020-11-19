@@ -11,8 +11,11 @@ Make components from cross-browser web standards without thinking too hard.
 ## Why?
 
 > ### exoteric
+>
 > /ˌɛksə(ʊ)ˈtɛrɪk/
+>
 > *adjective* `FORMAL`
+>
 > intended for or likely to be understood by the general public.
 
 ### [Kernighan's Law](https://github.com/dwmkerr/hacker-laws#kernighans-law)
