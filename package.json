@@ -26,7 +26,7 @@
   "scripts": {
     "up": "rm -rf {package-lock.json,node_modules} && npm upgrade && npm run prepare",
     "test": "serve -p 8080",
-    "build": "parcel build r.js",
+    "build": "parcel build --no-source-maps r.js",
     "tscheck": "tsc --target ES2020 --checkJs --allowJs --outFile oftypes/client.js --module System *.js decs.d.ts",
     "lint": "npx eslint *.js",
     "check": "( npm run tscheck || : ) && npm run lint",

@@ -35,7 +35,7 @@
     };
 
   // logging
-    self.onerror = (...v) => (console.log(v, v[0]+'', v[4] && v[4].message, v[4] && v[4].stack), true);
+    globalThis.onerror = (...v) => (console.log(v, v[0]+'', v[4] && v[4].message, v[4] && v[4].stack), true);
 
   // type functions
     const isKey             = v => T.check(T`Key`, v); 
@@ -53,7 +53,7 @@
     Object.assign(R,{s,attrskip,skip,attrmarkup,markup,guardEmptyHandlers,die});
 
     if ( DEBUG ) {
-      Object.assign(self, {d,u,T}); 
+      Object.assign(globalThis, {d,u,T}); 
     }
 
     export function R(p,...v) {
@@ -114,7 +114,7 @@
       });
 
       if ( useCache ) {
-        if ( instanceKey ) {
+        if ( instanceKey !== undefined ) {
           cache[cacheKey].instances[instanceKey] = retVal;
         } else {
           cache[cacheKey] = retVal;
