@@ -32,7 +32,7 @@
     "check": "( npm run tscheck || : ) && npm run lint",
     "prepare": "cp node_modules/vanillatype/t.js . && npm run check && npm run build"
   },
-  "version": "2.7.6",
+  "version": "2.7.7",
   "devDependencies": {
     "@types/node": "^14.14.28",
     "eslint": "^7.4.0",
