@@ -160,9 +160,6 @@
   /** vertically center spin buttons **/
     ::-webkit-inner-spin-button { align-self: center; }
 
-  /** datalist (safari workaround) **/
-    _:default:not(:root:root), input[list] { display: none; }
-    _:default:not(:root:root), datalist { display: inline-flex; }
   /** special input styles **/
     /* remove spin buttons from number */
       input[type="number"] {
@@ -174,7 +171,7 @@
       }
 
     /* make safari controls have silver border */
-      _:default:not(:root:root), select, button {
+      select, button {
         border-color: silver;
         background: linear-gradient(to top, gainsboro, snow);
         font-size: small;

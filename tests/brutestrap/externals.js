@@ -1,5 +1,5 @@
 // For development
-const DEV = false;
+const DEV = true;
 
 import {d as R, u as X} from './../../r.js';
 //import {d as R, u as X} from 'https://unpkg.com/brutalist-web/r.js';
@@ -9,11 +9,11 @@ import {scope} from 'https://unpkg.com/maskingtape.css/c3s.js';
 const d = R;
 const u = X;
 
-const base = DEV ? `${location.protocol}//${location.host}${location.pathname}` : 'https://unpkg.com/brutestrap/';
+const base = DEV ? `${location.protocol}//${location.host}${location.pathname}/` : 'https://unpkg.com/brutestrap/';
 
 const uri = name => {
   const random = DEV ? '?v='+Math.random() : '';
-  const url = `${base}${name}${random}`;
+  const url = DEV ? `${base}${name}` : `${base}${name}${random}`;
   //The following line breaks Edge because of the Exception thrown in c3s "Non CORS sheet with ${url}..."
   //because of the way we set a "placeholder key" there first, which triggers a load
   //X`<link crossorigin="anonymous" rel=stylesheet href=${url}>`.to(document.head,'beforeend');
