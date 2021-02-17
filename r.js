@@ -18,6 +18,7 @@
     const XSS               = () => `Possible XSS / object forgery attack detected. ` +
                               `Object code could not be verified.`;
     const OBJ               = () => `Object values not allowed here.`;
+    const KEY               = v => `'key' property must be a string. Was: ${v.key}`;
     const UNSET             = () => `Unset values not allowed here.`;
     const INSERT            = () => `Error inserting template into DOM. ` +
       `Position must be one of: ` +
@@ -37,7 +38,7 @@
     self.onerror = (...v) => (console.log(v, v[0]+'', v[4] && v[4].message, v[4] && v[4].stack), true);
 
   // type functions
-    const isKey             = v => T.check(T`Key`, v);
+    const isKey             = v => T.check(T`Key`, v); 
     const isHandlers        = v => T.check(T`Handlers`, v);
 
   // cache 
@@ -687,17 +688,23 @@
         const isBrutal        = T.check(T`BrutalObject`, v);
         const isForgery       = T.check(T`BrutalLikeObject`, v)  && !isBrutal; 
 
-        if ( isFunc )         return v;
-        if ( isBrutal )       return v;
-        if ( isKey(v) )       return v;
-        if ( isHandlers(v) )  return v;
-        if ( isBrutalArray )  return join(v); 
-        if ( isFuncArray )    return v;
-        if ( isMarkupObject )   return v;
-        if ( isMarkupAttrObject)return v;
-        if ( isUnset )        die({error: UNSET()});
-        if ( isForgery )      die({error: XSS()});
-        if ( isObject )       die({error: OBJ()});
+        if ( isFunc )             return v;
+        if ( isBrutal )           return v;
+        if ( isKey(v) )           return v;
+        if ( isHandlers(v) )      return v;
+        if ( isBrutalArray )      return join(v); 
+        if ( isFuncArray )        return v;
+        if ( isMarkupObject )     return v;
+        if ( isMarkupAttrObject)  return v;
+
+        if ( isUnset )            die({error: UNSET()});
+        if ( isForgery )          die({error: XSS()});
+
+        if ( isObject )       {
+          if ( Object.keys(v).join(',') === "key" ) {
+            die({error: KEY(v)});    
+          } else die({error: OBJ()});
+        }
 
         return v+'';
       }

@@ -8,6 +8,10 @@ Make components from cross-browser web standards without thinking too hard.
 
 **exoteric** is a library to help. 
 
+Stats:
+
+- Built and gzipped: 17K
+
 ## Why?
 
 > ### exoteric

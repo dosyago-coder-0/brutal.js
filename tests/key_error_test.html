@@ -1,0 +1,27 @@
+<style>
+  article::before {
+    display: block;
+    content: "Class=" attr(class);
+    background: #eee;
+  }
+</style>
+<div id=test1></div>
+<div id=test2></div>
+<div id=test3></div>
+<script type=module defer>
+  import {e} from '../r.js';
+
+  start();
+
+  function start() {
+    e`${{key:'validKey'}}
+      <div>I have a valid key!</div>
+    `.to('#test1');
+    e`${{key:0.123 /*invalid key*/}}
+      <div>I have an invalid key!</div>
+    `.to('#test2');
+    e`${{key:{hi:true} /*invalid key*/}}
+      <div>I have an invalid key!</div>
+    `.to('#test3');
+  }
+</script>
