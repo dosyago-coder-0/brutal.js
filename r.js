@@ -572,13 +572,13 @@
         let cached = cache[cacheKey];
         if ( cached == undefined ) {
           cached = cache[cacheKey] = {};
-          if ( instanceKey ) {
+          if ( instanceKey !== undefined ) {
             cached.instances = {};
             cached = cached.instances[instanceKey] = {};
           }
           firstCall = true;
         } else {
-          if ( instanceKey ) {
+          if ( instanceKey !== undefined ) {
             if ( ! cached.instances ) {
               cached.instances = {};
               firstCall = true;
