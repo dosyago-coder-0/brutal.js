@@ -8,8 +8,10 @@
 
   // Both SSR and Browser
 
+    T.defOr('KeyValue', T`String`, T`Number`);
+
     export const TKey = T.def('Key', {
-      key: T.defOr('ValidKey', T`String`, T`Number`)
+      key: T`KeyValue`
     });
 
     export const THandlers = T.def('Handlers', null, {verify: i => {

@@ -24,10 +24,10 @@
     "url": "git+https://github.com/c9fe/exoteric.git"
   },
   "scripts": {
-    "up": "rm -rf node_modules && npm upgrade && npm run prepare",
+    "up": "rm -rf {package-lock.json,node_modules} && npm upgrade && npm run prepare",
     "test": "serve -p 8080",
     "build": "parcel build r.js",
-    "tscheck": "tsc --target ES2020 --checkJs --allowJs --outFile typetests/client.js --module System *.js decs.d.ts",
+    "tscheck": "tsc --target ES2020 --checkJs --allowJs --outFile oftypes/client.js --module System *.js decs.d.ts",
     "lint": "npx eslint *.js",
     "check": "( npm run tscheck || : ) && npm run lint",
     "prepare": "cp node_modules/vanillatype/t.js . && npm run check && npm run build"
