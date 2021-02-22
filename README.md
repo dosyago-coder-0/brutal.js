@@ -1,4 +1,6 @@
-# 🌿 [exoteric](https://github.com/c9fe/exoteric) [![npm](https://img.shields.io/npm/v/exoteric.svg?label=&color=0080FF)](https://github.com/c9fe/exoteric/releases/latest) ![npm downloads total](https://img.shields.io/npm/dt/dumbass)
+# 💋 [exoteric](https://github.com/c9fe/exoteric) [![npm](https://img.shields.io/npm/v/exoteric.svg?label=&color=0080FF)](https://github.com/c9fe/exoteric/releases/latest) ![npm downloads total](https://img.shields.io/npm/dt/dumbass)
+
+KISS - Keep It Simple, Stupid
 
 > The tool of choice for the madding crowd
 
