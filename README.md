@@ -10,6 +10,23 @@ Make components from cross-browser web standards without thinking too hard.
 
 **exoteric** is a library to help. 
 
+[Quick example](https://github.com/c9fe/exoteric-tic-tac-toe):
+
+```jsx
+  <div class="game">
+    <div class="game-board">
+      ${Board(state)}
+    </div>
+    <div class="game-info">
+      <div>${''/* status */}</div>
+      <ol>${''/* TODO */}</ol>
+      <button click=${() => setState(initState(AppState))}>Reset</button>
+    </div>
+  </div>
+```
+
+From the ["Exoteric Tic-Tac-Toe"](https://github.com/c9fe/exoteric-tic-tac-toe/blob/main/public/src/app.js) (React.JS tic-tac-toe tutorial ported to Exoteric.)
+
 Stats:
 
 - Built and gzipped: 17K
